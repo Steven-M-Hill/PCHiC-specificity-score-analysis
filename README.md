@@ -1,4 +1,4 @@
-### Script to reproduce the specificity score analysis in [Javierre, Burren, Wilder, Kreuzhuber, Hill et al. Lineage-Specific Genome Architecture Links Enhancers and Non-coding Disease Variants to Target Gene Promoters. Cell 167, 1369-1384 (2016)](http://www.cell.com/cell/fulltext/S0092-8674(16)31322-8).
+### Script to reproduce the specificity score analysis in [Javierre, Burren, Wilder, Kreuzhuber, Hill et al. Lineage-specific genome architecture links enhancers and non-coding disease variants to target gene promoters. Cell 167, 1369-1384 (2016)](http://www.cell.com/cell/fulltext/S0092-8674(16)31322-8).
 
 ### Overview
 The specificity score analysis described in the paper quantifies the cell type-specificity of each gene’s interactions with active enhancers, or each gene's expression, through calculation of gene specificity scores (see the paper for full details).
