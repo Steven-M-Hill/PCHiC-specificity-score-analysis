@@ -1,7 +1,7 @@
 ########################################
 #
 # Code to reproduce the specificity score analysis in  
-# Javierre, Burren, Wilder, Kreuzhuber, Hill et al. Cell (2016), DOI: 10.1016/j.cell.2016.09.037.
+# Javierre, Burren, Wilder, Kreuzhuber, Hill et al. Cell 167, 1369-1384 (2016), DOI: 10.1016/j.cell.2016.09.037.
 #
 ########################################
 
@@ -12,7 +12,7 @@
 library(tidyr)
 library(gplots)
 library(RColorBrewer)
-library(ggplot)
+library(ggplot2)
 library(gridExtra)
 
 
@@ -65,14 +65,6 @@ pksOrig <- pks
 cellTypes <- colnames(pks)[12:28]
 cellTypesOrig <- cellTypes
 
-# load in PIR active status annotations
-activeIndicators = as.data.frame(readRDS("PIRactivity.Rds"))
-activeIndicators <- activeIndicators[,c("BaitID","OtherEndID","CellType","isAnyActiveRegAtOE")]
-# convert from long to wide format
-activeIndicators <- spread(activeIndicators,CellType,isAnyActiveRegAtOE)
-# rename columns to match peak matrix
-colnames(activeIndicators) <- c("baitID","oeID",cellTypes[c(10,14,8,2,3,4,6,1,5)])
-
 # remove cell types from peak matrix for which there are no annotations or expression data
 pks <- pks[,!(colnames(pks) %in% c("EP","FoeT","tCD4","aCD4","naCD4","nCD8","tCD8","nB","tB"))]
 cellTypes <- colnames(pks)[12:19]
@@ -80,15 +72,8 @@ cellTypes <- colnames(pks)[12:19]
 # remove interactions with no interaction score >5 in any of the remaining cell types
 pks <- pks[apply(pks[,cellTypes]>=5,1,any),] # reduces 728,838 interactions down to 527,726
 
-# remove interactions in activeIndicators that are not in pks
-pksColID <- paste(pks$baitID,pks$oeID,sep=":")
-actIndColID <- paste(activeIndicators$baitID,activeIndicators$oeID,sep=":")
-if(!identical(pksColID,actIndColID)) { 
-  activeIndicators <- activeIndicators[actIndColID %in% pksColID,]
-  actIndColID <- paste(activeIndicators$baitID,activeIndicators$oeID,sep=":")
-  if(!identical(pksColID,actIndColID)) error("IDs do not match")
-}
-rm(pksColID,actIndColID)
+# load in PIR active status annotations
+activeIndicators = as.data.frame(readRDS("PIRactivity.Rds"))
 
 # replace interaction scores with no active PIR by NA
 pksNA <- pks[,cellTypes]
@@ -132,12 +117,12 @@ geneNames <- sapply(1:length(gene),function(i){
 names(gene) <- paste(geneIDs,geneNames,sep=": ")
 
 # remove baits that have 0 or more than 1 protein coding interactions or have a missing annotation
-activeIndicators = as.data.frame(readRDS("baitAnnotations.Rds"))
-proteinCoding <- grepl("protein_coding",baitAnnotations$V5)
-proteinCoding[baitAnnotations$V5==""] <- NA
+baitAnnotations = readRDS("baitAnnotations.Rds")
+proteinCoding <- grepl("protein_coding",baitAnnotations$annotation)
+proteinCoding[baitAnnotations$annotation==""] <- NA
 useGene <- vector(length=length(geneIDs))
 for(i in 1:length(geneIDs)) {
-  nProtCod <- sum(proteinCoding[baitAnnotations$V4==geneIDs[i]])
+  nProtCod <- sum(proteinCoding[baitAnnotations$baitID==geneIDs[i]])
   if(!is.na(nProtCod) && nProtCod==1) {
     useGene[i] <- TRUE
   }
@@ -164,7 +149,7 @@ tmp <- pksOrig[,cellTypesOrig]
 tmp[tmp>4.3] <- 4.3 # upper bound, any values >4.3 are set to 4.3
 pksOrig[,cellTypesOrig] <- tmp
 distMatrix <- dist(t(pksOrig[,cellTypesOrig]))
-distMatrix <- as.matrix(distMatrix[cellTypes,cellTypes])
+distMatrix <- as.matrix(distMatrix)[cellTypes,cellTypes]
 
 # calculate specificity scores for each PIR, for each gene
 nGenes <- length(gene)
