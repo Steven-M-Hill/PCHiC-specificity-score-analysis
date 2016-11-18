@@ -20,7 +20,7 @@ The script reads in the following data files:
 **PCHiC_peak_matrix_cutoff5.txt**<br />
 Available to download from the Open Science Framework repository associated with the paper.<br />
 Direct link to file: https://osf.io/63hh4/.<br />
-This file contains the Promoter Capture Hi-C peak matrix consisting of CHiCAGO scores for all interactions that pass a cutoff of >=5 in at least one cell type. For further details of the contents of formatting of this file, see https://osf.io/cn4k8/.
+This file contains the Promoter Capture Hi-C peak matrix consisting of CHiCAGO scores for all interactions that pass a cutoff of >=5 in at least one cell type. For further details of the contents and formatting of this file, see https://osf.io/cn4k8/.
 
 **GeneExpressionMatrix.txt**<br />
 Available to download from the Open Science Framework repository associated with the paper.<br />
