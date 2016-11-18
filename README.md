@@ -5,7 +5,7 @@ The specificity score analysis described in the paper quantifies the cell type-s
 
 The script `specificityScoreAnalysis.R` contains:
 - a function `specificityScore` that calculates cell type-specificity scores given a vector of values (one value for each cell type);
-- code to calculate gene specificity scores (based on PCHi-C data and expression data);
+- code to calculate gene specificity scores (based on Promoter Capture Hi-C data and expression data);
 - code to reproduce Figures 4B,C,D,E and S4B,C.
 
 ### Required R packages
