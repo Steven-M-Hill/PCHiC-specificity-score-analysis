@@ -9,7 +9,6 @@
 # load required libraries
 ####
 
-library(tidyr)
 library(gplots)
 library(RColorBrewer)
 library(ggplot2)
