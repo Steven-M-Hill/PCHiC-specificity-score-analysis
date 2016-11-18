@@ -16,5 +16,21 @@ The script `specificityScoreAnalysis.R` contains:
 
 ### Required data files
 The script reads in the following data files:
-**PCHiC_peak_matrix_cutoff5.txt**
-Available to download via the Open Science Framework
+
+**PCHiC_peak_matrix_cutoff5.txt**<br />
+Available to download from the Open Science Framework repository associated with the paper.<br />
+Direct link to file: https://osf.io/63hh4/.<br />
+This file contains the Promoter Capture Hi-C peak matrix consisting of CHiCAGO scores for all interactions that pass a cutoff of >=5 in at least one cell type. For further details of the contents of formatting of this file, see https://osf.io/cn4k8/.
+
+**GeneExpressionMatrix.txt**<br />
+Available to download from the Open Science Framework repository associated with the paper.<br />
+Direct link to file: https://osf.io/wpjy8/.<br />
+This file contains a matrix of gene expression data used in the study, containing expression quantifications generated with `MMSEQ` (Turro et al., Genome Biol 2011).
+
+**PIRactivity.Rds**<br />
+Available to download from this Github repository.
+This R data file contains a data frame providing the activity statuses for the promoter interacting region (PIR) of each interaction, in each cell type. These activities are defined on the basis of chromHMM segmentations of BLUEPRINT histone modification ChIP data.
+
+**baitAnnotations.Rds**<br />
+Available to download from this Github repository.
+This R data file contains a data frame providing Ensembl Regulatory Build features mapping to each baited promoter fragment.
